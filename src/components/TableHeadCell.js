@@ -123,29 +123,30 @@ const TableHeadCell = ({
     ...(ariaSortDirection ? { direction: sortDirection } : {}),
   };
 
-  const [{ opacity }, dragRef, preview] = useDrag({
-    item: {
-      type: 'HEADER',
+  const [dragRef, { isDragging }] = useDrag(() => ({
+    type: 'HEADER',
+    item: () => ({
       colIndex: index,
       headCellRefs: draggableHeadCellRefs,
+    }),
+    collect: monitor => ({
+      isDragging: monitor.isDragging(),
+    }),
+    options: {
+      begin: () => {
+        setTimeout(() => {
+          setHintTooltipOpen(false);
+          setSortTooltipOpen(false);
+          setDragging(true);
+        }, 0);
+      },
+      end: () => {
+        setDragging(false);
+      },
     },
-    begin: monitor => {
-      setTimeout(() => {
-        setHintTooltipOpen(false);
-        setSortTooltipOpen(false);
-        setDragging(true);
-      }, 0);
-      return null;
-    },
-    end: (item, monitor) => {
-      setDragging(false);
-    },
-    collect: monitor => {
-      return {
-        opacity: monitor.isDragging() ? 1 : 0,
-      };
-    },
-  });
+  }));
+
+  const opacity = isDragging ? 1 : 0;
 
   const [drop] = useColumnDrop({
     drop: (item, mon) => {
