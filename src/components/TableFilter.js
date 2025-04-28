@@ -364,7 +364,7 @@ class TableFilter extends React.Component {
     this.setState({
       filterList: this.props.columns.map(() => []),
     });
-    if (this.props.options.confirmFilters !== true) {
+    if (typeof this.props.onFilterReset === 'function') {
       this.props.onFilterReset();
     }
   };
@@ -390,7 +390,12 @@ class TableFilter extends React.Component {
               tabIndex={0}
               aria-label={textLabels.reset}
               data-testid={'filterReset-button'}
-              onClick={this.resetFilters}>
+              onClick={() => {
+                this.resetFilters();
+                if (this.props.options && typeof this.props.options.onFilterReset === 'function') {
+                  this.props.options.onFilterReset();
+                }
+              }}>
               {textLabels.reset}
             </Button>
           </div>
