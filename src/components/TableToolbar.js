@@ -51,9 +51,6 @@ export const defaultToolbarStyles = theme => ({
   iconActive: {
     color: theme.palette.primary.main,
   },
-  filterPaper: {
-    maxWidth: '50%',
-  },
   filterCloseIcon: {
     position: 'absolute',
     right: 0,
@@ -433,7 +430,7 @@ class TableToolbar extends React.Component {
             <Popover
               refExit={filterPopoverExit}
               hide={this.state.hideFilterPopover || options.filter === 'disabled'}
-              classes={{ paper: classes.filterPaper, closeIcon: classes.filterCloseIcon }}
+              classes={{ closeIcon: classes.filterCloseIcon }}
               trigger={
                 <Tooltip title={filterTable} disableFocusListener>
                   <IconButton

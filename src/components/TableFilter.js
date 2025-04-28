@@ -374,7 +374,7 @@ class TableFilter extends React.Component {
     const textLabels = options.textLabels.filter;
 
     return (
-      <div className={classes.root}>
+      <div id="library-data-table-filter-dialog" className={classes.root}>
         <div className={classes.header}>
           <div className={classes.reset}>
             <Typography
