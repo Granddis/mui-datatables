@@ -366,6 +366,7 @@ class TableFilter extends React.Component {
     });
     if (typeof this.props.onFilterReset === 'function') {
       this.props.onFilterReset();
+      this.props.handleClose();
     }
   };
 
